@@ -20,14 +20,93 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.1.RELEASE</version>
+        <version>2.1.7.RELEASE</version>
     </parent>
 
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>repository.springframework.maven.release</id>
+            <name>Spring Framework Maven Release Repository</name>
+            <url>http://maven.springframework.org/milestone/</url>
+        </repository>
+        <repository>
+            <id>org.springframework</id>
+            <url> http://maven.springframework.org/snapshot</url>
+        </repository>
+        <repository>
+            <id>spring-milestone</id>
+            <name>Spring Maven MILESTONE Repository</name>
+            <url>http://repo.spring.io/libs-milestone</url>
+        </repository>
+        <repository>
+            <id>spring-release</id>
+            <name>Spring Maven RELEASE Repository</name>
+            <url>http://repo.spring.io/libs-release</url>
+        </repository>
+
+
+        <repository>
+            <id>pentaho-releases</id>
+            <url>http://repository.pentaho.org/artifactory/repo/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.1.7.RELEASE</version>
         </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+            <version>2.1.1.RELEASE</version></dependency>
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
 
         <dependency>
             <groupId>pentaho</groupId>
@@ -60,22 +139,41 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>3.8.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
+        <defaultGoal>install</defaultGoal>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <packagingExcludes>WEB-INF/lib/geronimo-servlet_2.5_spec-1.1.2.jar</packagingExcludes>
+                    <packagingExcludes>WEB-INF/lib/xercesImpl-2.9.1.jar</packagingExcludes>
+                    <packagingExcludes>WEB-INF/lib/xml-apis-1.4.01.jar</packagingExcludes>
+                    <packagingExcludes>WEB-INF/lib/xalan-2.6.0.jar</packagingExcludes>
+                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>mondrian-rest</warName>
+                </configuration>
             </plugin>
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>pentaho-releases</id>
-            <url>http://repository.pentaho.org/artifactory/repo/</url>
-        </repository>
-    </repositories>
 
 </project>
